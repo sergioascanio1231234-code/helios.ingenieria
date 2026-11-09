@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102747">
+  <meta name="description" content="Detalles de proyectos residenciales de energía solar de Helios Ingeniería.">
+  <title>Proyecto solar | Helios Ingeniería</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172a43;
+      --muted: #65748a;
+      --green: #173a68;
+      --green-dark: #102747;
+      --lime: #f7b928;
+      --cream: #f5f7fb;
+      --white: #fff;
+      --line: #e1e7f0;
+      --shadow: 0 24px 70px rgba(16, 39, 71, .12);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--cream); }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1050px, calc(100% - 40px)); margin: 0 auto; }
+    .site-header { padding: 18px 0; background: var(--white); border-bottom: 1px solid var(--line); }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 800; }
+    .brand-mark { width: 48px; height: 48px; border-radius: 11px; object-fit: cover; }
+    .brand-name { display: grid; gap: 2px; }
+    .brand-name small { color: var(--muted); font-size: .72rem; letter-spacing: .06em; }
+    main { padding: 54px 0 80px; }
+    .back-link { display: inline-flex; margin-bottom: 30px; color: var(--green); font-size: .9rem; font-weight: 700; }
+    .eyebrow { margin-bottom: 12px; color: var(--green); font-size: .76rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    h1 { margin: 0 0 16px; font-size: clamp(2.3rem, 5vw, 3.8rem); line-height: 1.05; letter-spacing: -.06em; }
+    .project-description { max-width: 720px; margin: 0 0 36px; color: var(--muted); font-size: 1.03rem; line-height: 1.8; white-space: pre-line; }
+    .gallery-controls { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+    .gallery-controls p { margin: 0; color: var(--muted); font-size: .88rem; font-weight: 700; }
+    .gallery-buttons { display: flex; gap: 10px; }
+    .gallery-button { width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%; color: var(--green-dark); background: var(--white); font: inherit; font-size: 1.25rem; cursor: pointer; }
+    .gallery-button:hover:not(:disabled) { border-color: var(--green); background: #edf1f8; }
+    .gallery-button:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
+    .gallery-button:disabled { opacity: .42; cursor: not-allowed; }
+    .project-gallery { display: flex; gap: 18px; overflow-x: auto; padding: 2px 2px 18px; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-color: var(--green) #e1e7f0; scrollbar-width: thin; }
+    .project-photo { flex: 0 0 100%; overflow: hidden; margin: 0; border: 1px solid var(--line); border-radius: 20px; background: var(--white); box-shadow: var(--shadow); scroll-snap-align: start; }
+    .project-photo img { display: block; width: 100%; height: clamp(280px, 65vh, 600px); object-fit: contain; background: #edf1f8; }
+    .project-photo figcaption { padding: 16px 19px; font-size: .94rem; font-weight: 750; }
+    .not-found { padding: 28px; border: 1px solid var(--line); border-radius: 16px; background: var(--white); color: var(--muted); }
+    [hidden] { display: none !important; }
+    @media (max-width: 650px) {
+      main { padding-top: 34px; }
+      .project-gallery { grid-template-columns: 1fr; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html#inicio" aria-label="Helios Ingeniería, inicio">
+        <img class="brand-mark" src="helios.jpg" alt="">
+        <span class="brand-name"><strong>Helios Ingeniería</strong><small>ENERGÍA SOLAR</small></span>
+      </a>
+    </div>
+  </header>
+  <main class="container">
+    <a class="back-link" href="index.html#nosotros">← Volver a todos los proyectos</a>
+    <article id="project" hidden>
+      <p class="eyebrow">Proyecto residencial</p>
+      <h1 id="project-title"></h1>
+      <p class="project-description" id="project-description"></p>
+      <div class="gallery-controls" aria-label="Controles de la galería">
+        <p id="slide-status" aria-live="polite">Imagen 1 de 3</p>
+        <div class="gallery-buttons">
+          <button class="gallery-button" id="previous-slide" type="button" aria-label="Ver imagen anterior" disabled>‹</button>
+          <button class="gallery-button" id="next-slide" type="button" aria-label="Ver imagen siguiente">›</button>
+        </div>
+      </div>
+      <div class="project-gallery" id="project-gallery" aria-label="Fotos del proyecto">
+        <figure class="project-photo">
+          <img id="family-image" alt="">
+          <figcaption>La familia</figcaption>
+        </figure>
+        <figure class="project-photo">
+          <img id="complex-image" alt="">
+          <figcaption>Conjunto residencial</figcaption>
+        </figure>
+        <figure class="project-photo">
+          <img id="panels-image" alt="">
+          <figcaption>Paneles e inversor</figcaption>
+        </figure>
+      </div>
+    </article>
+    <p class="not-found" id="not-found" hidden>No encontramos este proyecto. Vuelve a la página principal y selecciona otro proyecto.</p>
+  </main>
+  <script>
+    const projects = {
+      familia_vega: {
+        title: "Proyecto Familia Vega",
+        description: "☀️ PROYECTO CORTIJOS 👨‍👩‍👧‍👦 Familia Vega\n\nSeguimos llevando energía limpia a más hogares 💡⚡\n\n🔹 20 paneles de 620 Wp – JA Solar\n🔹 Inversor de 10 kW – Huawei\n🔹 Generación garantizada: mínimo 1800 kWh/mes\n\n💰 Ahorro estimado: $1.550.000 mensuales\n\nUn proyecto que no solo reduce costos, sino que también apuesta por un futuro más sostenible 🌱\n¿Te imaginas pagar menos energía cada mes? Escríbenos y hazlo realidad 🚀",
+        family: "familia.vega.jpeg",
+        complex: "barrio.cortijos.jpeg",
+        panels: "paneles.inversor.20.10k.jpeg"
+      },
+      familia_maestre: {
+        title: "Proyecto Familia Maestre",
+        description: "☀️ PROYECTO CITARINGA\n\nLa energía del futuro ya es una realidad.\n\nInstalamos un sistema de autogeneración solar diseñado para maximizar el ahorro y la eficiencia:\n\n🔋 18 paneles de 620 W\n⚡ Inversor de 10 kW\n📊 Potencia total: 11,6 kWp\n🌱 Generación garantizada: +1500 kWh/mes\n\n💰 Esto se traduce en un beneficio económico estimado de $1.350.000 mensuales en ahorro de energía.\n\nUna inversión inteligente que no solo reduce costos, sino que también aporta a un planeta más sostenible 🌎\n\n¿Listo para dejar de pagar de más por tu energía?\n📩 Escríbenos y te asesoramos sin costo.",
+        family: "familia.maestre.jpeg",
+        complex: "conj.citaringa.jpeg",
+        panels: "paneles.inversor.18.10k.jpeg"
+      },
+      familia_cerchiario: {
+        title: "Proyecto Familia Cerchiaro",
+        description: "☀️ Nuevo proyecto instalado: Conjunto Cañahuate\n\nSeguimos llevando energía solar a más empresas y proyectos que buscan reducir sus costos de energía con soluciones confiables y de alta calidad.\n\n🔋 Especificaciones del sistema:\n\n* 24 paneles solares Trina Solar de 630 W\n\n* Inversor Huawei de 10 kW\n\n* Potencia instalada: 15,12 kWp\n\nEn Helios diseñamos e instalamos sistemas fotovoltaicos con equipos de marcas líderes, garantizando eficiencia, seguridad y el máximo rendimiento para tu inversión.\n\n¿Quieres empezar a ahorrar en tu factura de energía? Escríbenos y recibe una asesoría personalizada. ⚡🌞\n\n📲 Helios Ingenieria electrica, transformando el sol en ahorro.",
+        family: "familia.Cerchiaro.jpeg",
+        complex: "conjunto.conj.cañahuate.jpeg",
+        panels: "paneles.inversor.24.10k.jpeg"
+      },
+      familia_palacios: {
+        title: "Proyecto Familia Palacios",
+        description: "¡La energía del sol ya es una realidad en Balcones de Santa Helena! ☀️🏢\n\nPresentamos el Proyecto Nando Palacios, una solución de alta eficiencia diseñada y ejecutada por el equipo de Helios. No solo instalamos paneles, transformamos la forma en que consumes energía.\n\nFicha Técnica del Éxito:\n\n⚡ Potencia Instalada: 12.3 kWp.\n\n🔋 Equipos de Élite: 20 paneles JA Solar de 615 Wp + Inversor Huawei de 10 kW.\n\n📉 Generación Garantizada: Mínimo 1,800 kWh/mes.\n\n💰 El impacto real: Un beneficio económico estimado de $1,550,000 mensuales.\n\n¿Listo para ver cómo bajan tus facturas mientras cuidas el planeta? Escríbenos y diseñamos tu proyecto.",
+        family: "familia.palacios.jpeg",
+        complex: "conju.santa.helena.jpeg",
+        panels: "paneles.inversor.20.10k.jpeg"
+      },
+      familia_pelaez: {
+        title: "Proyecto Familia Peláez",
+        description: "☀️ Proyecto Balcones | Familia Peláez ☀️\n\nSeguimos transformando hogares con energía solar. En esta oportunidad, instalamos un sistema fotovoltaico de 7.6 kWp compuesto por 12 paneles Trina Solar de 630W y un inversor Huawei de 6 kW, diseñado para maximizar la generación de energía y el ahorro en la factura eléctrica.\n\n💡 Ahorro estimado: $1.000.000 mensuales\n\nUn proyecto ejecutado por HELIOS que demuestra cómo la energía solar se convierte en una inversión inteligente para el presente y el futuro.",
+        family: "familia.pelaez.jpeg",
+        complex: "conj.balcones.de.santa.helena.jpeg",
+        panels: "paneles.inversor.12.6k.jpeg"
+      },
+      familia_figueroa: {
+        title: "Proyecto Familia Figueroa",
+        description: "🚀 Eficiencia energética en el Primero de Mayo: Proyecto Familia Figueroa 🔋\n\nPresentamos el desarrollo de nuestra más reciente instalación residencial, un sistema diseñado a la medida para optimizar el consumo de energía y maximizar el rendimiento financiero del hogar.\n\nEspecificaciones Técnicas del Proyecto:\n\nCapacidad Instalada: 7.6 kWp\n\nMódulos Fotovoltaicos: 12 paneles Trina Solar de 630W (Tecnología de vanguardia y alta durabilidad).\n\nInversión Central: Inversor Huawei de 6kW (Monitoreo en tiempo real y óptima conversión de energía).\n\nImpacto Económico: Reducción proyectada de $1.000.000 en los costos de energía mensuales.\n\nGarantizamos ingeniería de alta calidad para que las familias den el salto a la autogeneración con total tranquilidad y respaldo. ¡Felicitaciones a la Familia Figueroa por esta gran inversión! 🏢☀️",
+        family: "familia.figueroa.jpeg",
+        complex: "barrio.primero.de.mayo.jpeg",
+        panels: "paneles.inversor.12.6k.jpeg"
+      }
+    };
+
+    const slug = new URLSearchParams(window.location.search).get("proyecto");
+    const project = projects[slug];
+    if (project) {
+      document.title = `${project.title} | Helios Ingeniería`;
+      document.querySelector("#project-title").textContent = project.title;
+      document.querySelector("#project-description").textContent = project.description;
+      document.querySelector("#family-image").src = `proyectos/${slug}/${project.family}`;
+      document.querySelector("#family-image").alt = `${project.title}, foto de la familia`;
+      document.querySelector("#complex-image").src = `proyectos/${slug}/${project.complex}`;
+      document.querySelector("#complex-image").alt = `Vista del conjunto del ${project.title}`;
+      document.querySelector("#panels-image").src = `proyectos/${slug}/${project.panels}`;
+      document.querySelector("#panels-image").alt = `Paneles e inversor del ${project.title}`;
+      document.querySelector("#project").hidden = false;
+
+      const gallery = document.querySelector("#project-gallery");
+      const slides = [...gallery.querySelectorAll(".project-photo")];
+      const previousButton = document.querySelector("#previous-slide");
+      const nextButton = document.querySelector("#next-slide");
+      const slideStatus = document.querySelector("#slide-status");
+
+      function getCurrentSlide() {
+        const gap = Number.parseFloat(window.getComputedStyle(gallery).columnGap) || 0;
+        const slideWidth = slides[0].getBoundingClientRect().width;
+        return Math.min(slides.length - 1, Math.round(gallery.scrollLeft / (slideWidth + gap)));
+      }
+
+      function updateGalleryControls() {
+        const currentSlide = getCurrentSlide();
+        previousButton.disabled = currentSlide === 0;
+        nextButton.disabled = currentSlide === slides.length - 1;
+        slideStatus.textContent = `Imagen ${currentSlide + 1} de ${slides.length}`;
+      }
+
+      previousButton.addEventListener("click", () => {
+        const previousSlide = Math.max(0, getCurrentSlide() - 1);
+        gallery.scrollTo({ left: slides[previousSlide].offsetLeft - slides[0].offsetLeft, behavior: "smooth" });
+      });
+      nextButton.addEventListener("click", () => {
+        const nextSlide = Math.min(slides.length - 1, getCurrentSlide() + 1);
+        gallery.scrollTo({ left: slides[nextSlide].offsetLeft - slides[0].offsetLeft, behavior: "smooth" });
+      });
+      gallery.addEventListener("scroll", updateGalleryControls, { passive: true });
+      window.addEventListener("resize", updateGalleryControls);
+      updateGalleryControls();
+    } else {
+      document.querySelector("#not-found").hidden = false;
+    }
+  </script>
+</body>
+</html>
